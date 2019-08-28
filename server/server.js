@@ -8,6 +8,7 @@ const helmet = require('helmet');
 const Logger = require('./utils/logger');
 const path = require('path');
 const session = require('express-session');
+const cors = require('cors');
 const db = require('./utils/database');
 
 const connectInterval = setInterval(ConnectToDB, 10000);
@@ -27,6 +28,7 @@ const app = express();
 
 const port = process.env.PORT || 8181;
 
+app.use(cors());
 app.use(helmet());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyparser.json());
