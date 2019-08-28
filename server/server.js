@@ -9,16 +9,17 @@ const Logger = require('./utils/logger');
 const path = require('path');
 const session = require('express-session');
 const cors = require('cors');
-const db = require('./utils/database');
+const db = require('./models');
 
-const connectInterval = setInterval(ConnectToDB, 10000);
+const connectInterval = setInterval(ConnectToDB, 1000);
 
 function ConnectToDB()
 {
-	db.authenticate()
+	db.sequelize.authenticate()
 		.then(() =>
 		{
 			Logger.log('Database connection successfull');
+			db.sequelize.sync();
 			clearInterval(connectInterval);
 		})
 		.catch((err) => Logger.log(`There was an error connecting to the database. Err: ${err.message}`));
