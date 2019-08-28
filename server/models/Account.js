@@ -1,10 +1,22 @@
-const Sequelize = require('sequelize');
-
-class Account extends Sequelize.Model {}
-Account.init(
+module.exports = (sequelize, DataTypes) =>
+{
+	const Account = sequelize.define('account',
+		{
+			id: {
+				type: DataTypes.INTEGER,
+				primaryKey: true,
+				autoIncrement: true,
+			},
+			username: DataTypes.STRING,
+			password: DataTypes.STRING,
+			name: DataTypes.STRING,
+			locked: DataTypes.BOOLEAN,
+			verified: DataTypes.BOOLEAN,
+			avatarurl: DataTypes.STRING,
+		});
+	Account.associate = (models) =>
 	{
-		username: Sequelize.STRING,
-		password: Sequelize.STRING,
-		name: Sequelize.STRING,
-		locked: Sequelize.BOOLEAN,
-	});
+		Account.hasMany(models.tweet);
+	};
+	return Account;
+};

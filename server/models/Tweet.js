@@ -1,8 +1,19 @@
-const Sequelize = require('sequelize');
+module.exports = (sequelize, DataTypes) =>
+{
+	const Tweet = sequelize.define('tweet',
+		{
+			id: {
+				type: DataTypes.INTEGER,
+				primaryKey: true,
+				autoIncrement: true,
+			},
+			text: DataTypes.STRING,
+		});
 
-class Tweet extends Sequelize.Model {}
-Tweet.init(
+	Tweet.associate = (models) =>
 	{
-		userid: Sequelize.STRING,
-		text: Sequelize.STRING,
-	});
+		Tweet.hasMany(models.tweetlikes);
+		Tweet.belongsTo(models.account);
+	};
+	return Tweet;
+};
