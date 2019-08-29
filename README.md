@@ -14,20 +14,20 @@ textify is a basic twitter clone.
 
 **Roadmap**
 
-[ ] Setup client and server
- [X] Setup basic server & structure
-  [X] Install express, bcryptjs, glob, sequelize, ...
-  [X] Add routes
- [ ] Database and Routes
-  [X] Create database model folder and basic tables
-  [X] Include database and models into the app
-  [ ] Set routes to use "app" and "db"
-  [ ] Implement registration
-   [ ] Check if username is allready registered
-   [ ] Create if it isn't and hash password with bcryptjs
-  [ ] Implement login
-	[ ] Check if username exists
-	[ ] Create a session, if everything is correct
-  [ ] ToDo...
+[ ] Setup client and server  
+ [X] Setup basic server & structure  
+  [X] Install express, bcryptjs, glob, sequelize, ...  
+  [X] Add routes  
+ [ ] Database and Routes  
+  [X] Create database model folder and basic tables  
+  [X] Include database and models into the app  
+  [ ] Set routes to use "app" and "db"  
+  [ ] Implement registration  
+   [ ] Check if username is allready registered  
+   [ ] Create if it isn't and hash password with bcryptjs  
+  [ ] Implement login  
+	[ ] Check if username exists  
+	[ ] Create a session, if everything is correct  
+  [ ] ToDo...  
 
 I will not be providing direct support for this gamemode; if you have an issue or come across actual functionality issues please raise an issue in the **issues** tab.
