@@ -6,13 +6,13 @@ const { check, validationResult } = require('express-validator/check');
 router.post('/account/login',
 	[
 		check('username')
-			.not().isEmpty().withMessage('Der Benutzername darf nicht leer sein')
-			.isLength({ min: 5 }).withMessage('Der Benutzername muss mindestens 5 Zeichen haben')
-			.trim().withMessage('Der Benutzername darf keine Leerzeichen enthalten')
-			.escape().withMessage('Der Benutzername darf keine Sonderzeichen enthalten'),
+			.not().isEmpty()
+			.isLength({ min: 5 })
+			.trim()
+			.escape(),
 		check('password')
-			.not().isEmpty().withMessage('Das Passwort darf nicht leer sein')
-			.isLength({ min: 8 }).withMessage('Das Passwort muss mindestens 8 stellen haben'),
+			.not().isEmpty()
+			.isLength({ min: 8 }),
 	], (req, res) =>
 	{
 		const errors = validationResult(req);
