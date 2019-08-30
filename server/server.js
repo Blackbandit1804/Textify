@@ -57,7 +57,7 @@ glob.sync('./routes/**/*.js').forEach(file =>
 {
 	const filename = path.resolve(file);
 	Logger.log(filename, 'debug');
-	app.use(require(filename));
+	require(filename)(app, db);
 });
 Logger.log('Invoking routes - End', 'debug');
 
