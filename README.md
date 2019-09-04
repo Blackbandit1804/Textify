@@ -21,13 +21,13 @@ textify is a basic twitter clone.
  [ ] Database and Routes  
   [X] Create database model folder and basic tables  
   [X] Include database and models into the app  
-  [ ] Set routes to use "app" and "db"  
-  [ ] Implement registration  
-   [ ] Check if username is allready registered  
-   [ ] Create if it isn't and hash password with bcryptjs  
-  [ ] Implement login  
-	[ ] Check if username exists  
-	[ ] Create a session, if everything is correct  
+  [X] Set routes to use "app" and "db"  
+  [X] Implement registration  
+   [X] Check if username is allready registered  
+   [X] Create if it isn't and hash password with bcryptjs  
+  [X] Implement login  
+	[X] Check if username exists  
+	[X] Create a session, if everything is correct  
   [ ] ToDo...  
 
 I will not be providing direct support for this gamemode; if you have an issue or come across actual functionality issues please raise an issue in the **issues** tab.
