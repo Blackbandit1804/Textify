@@ -77,6 +77,38 @@ module.exports = (app, db) =>
 									},
 								});
 						}
+						const validUntil = new Date(Date.now() + (30 * 60 * 1000) + (2 * 60 * 60 * 1000));
+						db.sessions.findOrCreate(
+							{
+								where:
+								{
+									accountId: usr_acc.id,
+								},
+								defaults:
+								{
+									token: Math.random().toString(36).substring(7),
+									validUntil: validUntil.toJSON().slice(0, 19).replace('T', ' '),
+								},
+							})
+							.then(([sessionData, created]) =>
+							{
+								const tokenData = sessionData.get({
+									plain: true,
+								});
+								tokenData.created = created;
+								if(!created)
+								{
+									sessionData.update(
+										{
+											validUntil: validUntil,
+										})
+										.then(res.status(200).json(tokenData));
+								}
+								else
+								{
+									res.status(200).json(tokenData);
+								}
+							});
 					});
 				});
 		});
