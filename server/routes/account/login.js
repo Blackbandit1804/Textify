@@ -96,17 +96,33 @@ module.exports = (app, db) =>
 									plain: true,
 								});
 								tokenData.created = created;
+								delete tokenData['updatedAt'];
+								delete tokenData['accountId'];
 								if(!created)
 								{
 									sessionData.update(
 										{
 											validUntil: validUntil,
 										})
-										.then(res.status(200).json(tokenData));
+										.then(res.status(200).json(
+											{
+												'Success':
+												{
+													'Code': 200,
+													'Data': tokenData,
+												},
+											}));
 								}
 								else
 								{
-									res.status(200).json(tokenData);
+									res.status(200).json(
+										{
+											'Success':
+											{
+												'Code': 200,
+												'Data': tokenData,
+											},
+										});
 								}
 							});
 					});
