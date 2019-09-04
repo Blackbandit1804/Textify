@@ -26,8 +26,8 @@ textify is a basic twitter clone.
    [X] Check if username is allready registered  
    [X] Create if it isn't and hash password with bcryptjs  
   [X] Implement login  
-	[X] Check if username exists  
-	[X] Create a session, if everything is correct  
+    [X] Check if username exists  
+    [X] Create a session, if everything is correct  
   [ ] ToDo...  
 
-I will not be providing direct support for this gamemode; if you have an issue or come across actual functionality issues please raise an issue in the **issues** tab.
+I will not be providing direct support for this script; if you have an issue or come across actual functionality issues please raise an issue in the **issues** tab.
