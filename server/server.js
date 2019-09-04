@@ -21,8 +21,23 @@ function ConnectToDB()
 			Logger.log('Database connection successfull');
 			db.sequelize.sync();
 			clearInterval(connectInterval);
+			setInterval(CheckSessions, 10000);
 		})
 		.catch((err) => Logger.log(`There was an error connecting to the database. Err: ${err.message}`));
+}
+
+function CheckSessions()
+{
+	db.sessions.findAll()
+		.then(sessionData =>
+		{
+			sessionData.forEach(userSession =>
+			{
+				const now = new Date();
+				if(now > userSession.validUntil)
+					userSession.destroy();
+			});
+		});
 }
 
 const app = express();
