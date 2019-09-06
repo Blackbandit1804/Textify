@@ -152,9 +152,9 @@ module.exports = (app, db) =>
 			db.account.findOne(
 				{
 					where:
-				{
-					username: req.params.username,
-				},
+					{
+						username: req.params.username,
+					},
 					attributes: ['id'],
 				})
 				.then(account =>
@@ -180,10 +180,16 @@ module.exports = (app, db) =>
 							{
 								accountId: account.id,
 							},
+							include: [
+								{
+									model: db.account,
+									attributes: ['username', 'name', 'verified', 'avatarurl'],
+								}],
 							order:
 							[
 								[ 'id', 'DESC' ],
 							],
+							attributes: ['id', 'text', 'createdAt'],
 						})
 						.then(tweets =>
 						{
@@ -258,6 +264,12 @@ module.exports = (app, db) =>
 					{
 						id: req.params.tweetId,
 					},
+					include: [
+						{
+							model: db.account,
+							attributes: ['username', 'name', 'verified', 'avatarurl'],
+						}],
+					attributes: ['text', 'createdAt'],
 				})
 				.then(tweetMessage =>
 				{
