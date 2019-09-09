@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+  <head>
+	<!--Import Google Icon Font-->
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<!--Import materialize.css-->
+	<link type="text/css" rel="stylesheet" href="css/materialize.min.css" media="screen,projection"/>
+	<link type="text/css" rel="stylesheet" href="css/custom.css" />
+
+	<!--Let browser know website is optimized for mobile-->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  </head>
+
+  <body>
+	<!-- Dropdown Structure -->
+	<nav class="yellow darken-4">
+		<div class="nav-wrapper">
+			<a href="JavaScript:void(0)" class="brand-logo"><i class="material-icons">create</i>Texify</a>
+			<a href="JavaScript:void(0)" data-target="account-sidebar" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+			<ul id="nav-mobile" class="right hide-on-med-and-down">
+				<li>
+					<a class="account-dropdown" href="JavaScript:void(0)" data-target="account">Account<i class="material-icons right">arrow_drop_down</i></a>
+				</li>
+				<ul id="account" class="dropdown-content yellow darken-4">
+					<li><a href="JavaScript:void(0)">Login</a></li>
+					<li><a href="JavaScript:void(0)">Passwort vergessen</a></li>
+					<li class="divider orange darken-1"></li>
+					<li><a href="JavaScript:void(0)">Registrieren</a></li>
+				</ul>
+			</ul>
+		</div>
+	</nav>
+	<ul class="sidenav yellow darken-4" id="account-sidebar">
+		<li><b>Account</b></li>
+		<li class="divider orange darken-1"></li>
+		<li><a href="JavaScript:void(0)">Login</a></li>
+		<li><a href="JavaScript:void(0)">Passwort vergessen</a></li>
+		<li class="divider orange darken-1"></li>
+		<li><a href="JavaScript:void(0)">Registrieren</a></li>
+	</ul>
+	<div class="row">
+		<div class="col s12 m3 l2">
+			<p>s12 m3</p>
+		</div>
+		<div class="col s12 m6 l8" id="tweets">
+		</div>
+		<div class="col s12 m3 l2">
+			<div class="row">
+				<div class="col s12 m12 l12">
+					<div class="card">
+						<div class="card-content">
+							<b>Tending hashtags</b>
+						</div>
+						<div class="card-action card-footer">
+							Comming soon
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!--JavaScript at end of body for optimized loading-->
+	<script type="text/javascript" src="./js/jquery.min.js"></script>
+	<script type="text/javascript" src="./js/materialize.min.js"></script>
+	<script type="text/javascript" src="./js/app.js"></script>
+  </body>
+</html>
