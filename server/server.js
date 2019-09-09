@@ -83,7 +83,7 @@ app.all('*', (req, res) =>
 			'Error':
 			{
 				'Code': 404,
-				'Message': 'Seite nicht gefunden',
+				'Message': 'Site not found',
 			},
 		});
 });
