@@ -3,6 +3,55 @@ const SessionManager = require('../../utils/sessionManager');
 
 module.exports = (app, db) =>
 {
+	// #region Show all tweets
+	app.get('/tweets/:offset?', (req, res) =>
+	{
+		if(!req.params.offset)
+			req.params.offset = 0;
+		db.tweet.findAll(
+			{
+				attributes: ['text', 'createdAt'],
+				include: [
+					{
+						model: db.account,
+						attributes: ['username', 'name', 'verified', 'avatarurl'],
+					}],
+				limit: 10,
+				offset: parseInt(req.params.offset),
+				order:
+				[
+					[ 'id', 'DESC' ],
+				],
+			})
+			.then(tweetMessages =>
+			{
+				if(!tweetMessages)
+				{
+					return res.status(404).json(
+						{
+							'Error':
+							{
+								'Code': 404,
+								'Messages': [
+									{
+										'msg': 'Tweet not found',
+									},
+								],
+							},
+						});
+				}
+				res.status(200).json(
+					{
+						'Success':
+						{
+							'Code': 200,
+							'Data': tweetMessages,
+						},
+					});
+			});
+	});
+	// #endregion
+
 	// #region Send tweet
 	app.post('/tweet',
 		[
@@ -28,7 +77,8 @@ module.exports = (app, db) =>
 					});
 			}
 			const sessionManager = new SessionManager(db, req.body.token);
-			if(await !sessionManager.checkSession())
+			const hasSession = await sessionManager.checkSession();
+			if(!hasSession)
 			{
 				return res.status(403).json(
 					{
@@ -43,7 +93,8 @@ module.exports = (app, db) =>
 						},
 					});
 			}
-			if(await !sessionManager.updateSession)
+			const sessionUpdate = await sessionManager.updateSession();
+			if(!sessionUpdate)
 			{
 				return res.status(500).json(
 					{
@@ -58,10 +109,11 @@ module.exports = (app, db) =>
 						},
 					});
 			}
+			const userID = await sessionManager.getSessionUserId();
 			db.tweet.create(
 				{
 					text: req.body.message,
-					accountId: sessionManager.getCurrentSessionObject().accountId,
+					accountId: userID,
 				})
 				.then(tweet =>
 				{
