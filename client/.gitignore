@@ -86,3 +86,10 @@ typings/
 
 # DynamoDB Local files
 .dynamodb/
+
+# OpeNode & OpeNode Docker
+.openode
+.openodeignore
+
+docker-compose.yml
+Dockerfile
