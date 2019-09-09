@@ -1,10 +1,12 @@
 $(() =>
 {
+	const API_URL = 'http://localhost:8181/';
+
 	let offset = 0;
 	loading = false;
 	$(".account-dropdown").dropdown();
 	$('.sidenav').sidenav( { edge: 'right', inDuration: 500, outDuration: 500 } );
-	$.get('http://localhost:8181/tweets', (data) =>
+	$.get(`${API_URL}tweets`, (data) =>
 	{
 		if(data.Error)
 		{
@@ -32,7 +34,7 @@ $(() =>
 			{
 				loading = true;
 				offset += 10;
-				$.get(`http://localhost:8181/tweets/${offset}`, (data) =>
+				$.get(`${API_URL}tweets/${offset}`, (data) =>
 				{
 					console.log(data);
 					if(data.Error)
