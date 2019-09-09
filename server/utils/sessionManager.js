@@ -19,32 +19,51 @@ class SessionManager
 	 */
 	async checkSession()
 	{
-		this.sessionData = this.db.sessions.findOne(
-			{
-				where:
+		try
+		{
+			this.sessionData = await this.db.sessions.findOne(
 				{
-					token: this.token,
-				},
-			})
-			.then(sessionData =>
-			{
-				if(!sessionData)
-					return false;
-				return true;
-			})
-			.catch(err =>
-			{
-				Logger.log(err, 'error');
+					where:
+					{
+						token: this.token,
+					},
+				});
+			if(!this.sessionData)
 				return false;
-			});
+			return true;
+		}
+		catch(err)
+		{
+			Logger.log(err, 'error');
+			return false;
+		}
 	}
+
 	/**
-	 * Returns the current session object for later use
-	 * @returns {object} Session SQL-Object
+	 * Returns the id of the cuser
+	 * @returns {number} User SQL AccountID
 	 */
-	getCurrentSessionObject()
+	async getSessionUserId()
 	{
-		return this.sessionData;
+		try
+		{
+			const accountData = await this.db.sessions.findOne(
+				{
+					attributes: ['accountId'],
+					where:
+					{
+						token: this.token,
+					},
+				});
+			if(!accountData)
+				return -1;
+			return parseInt(accountData.dataValues.accountId);
+		}
+		catch (err)
+		{
+			Logger.log(err, 'error');
+			return -1;
+		}
 	}
 
 	/**
@@ -54,20 +73,19 @@ class SessionManager
 	async updateSession()
 	{
 		const validUntil = new Date(Date.now() + (30 * 60 * 1000));
-		this.sessionData.update(
-			{
-				validUntil: validUntil,
-			})
-			.then(() =>
-			{
-				return true;
-			})
-			.catch(err =>
-			{
-				Logger.log(err, 'error');
-				return false;
-			});
-		return false;
+		try
+		{
+			await this.sessionData.update(
+				{
+					validUntil: validUntil,
+				});
+			return true;
+		}
+		catch(err)
+		{
+			Logger.log(err, 'error');
+			return false;
+		}
 	}
 }
 
