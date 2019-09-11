@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
+	<title>Textify - The easy way of sending messages</title>
 	<!--Import Google Icon Font-->
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 	<!--Import materialize.css-->
@@ -22,25 +23,33 @@
 					<a class="account-dropdown" href="JavaScript:void(0)" data-target="account">Account<i class="material-icons right">arrow_drop_down</i></a>
 				</li>
 				<ul id="account" class="dropdown-content yellow darken-4">
-					<li><a href="JavaScript:void(0)">Login</a></li>
-					<li><a href="JavaScript:void(0)">Passwort vergessen</a></li>
+					<li><a href="JavaScript:void(0)" class="login">Login</a></li>
 					<li class="divider orange darken-1"></li>
-					<li><a href="JavaScript:void(0)">Registrieren</a></li>
+					<li><a href="JavaScript:void(0)" class="register">Register</a></li>
 				</ul>
 			</ul>
 		</div>
 	</nav>
 	<ul class="sidenav yellow darken-4" id="account-sidebar">
-		<li><b>Account</b></li>
+		<li><a href="JavaScript:void(0)" class="login">Login</a></li>
 		<li class="divider orange darken-1"></li>
-		<li><a href="JavaScript:void(0)">Login</a></li>
-		<li><a href="JavaScript:void(0)">Passwort vergessen</a></li>
-		<li class="divider orange darken-1"></li>
-		<li><a href="JavaScript:void(0)">Registrieren</a></li>
+		<li><a href="JavaScript:void(0)" class="register">Register</a></li>
 	</ul>
 	<div class="row">
 		<div class="col s12 m3 l2">
-			<p>s12 m3</p>
+			<div class="row">
+				<div class="col s12 m12 l12">
+					<div class="card">
+						<div class="card-content">
+							<b>Some Name</b><br>
+							<br>
+							<b>Tweets:</b> 0<br>
+							<b>Floower:</b> 0<br>
+							<b>Following:</b> 0
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
 		<div class="col s12 m6 l8" id="tweets">
 		</div>
@@ -59,7 +68,59 @@
 			</div>
 		</div>
 	</div>
-
+	<div id="login" class="modal">
+		<div class="modal-content">
+			<form class="col s12">
+				<div class="row">
+					<h4>Please fill all forms to login:</h4><br>
+					<div class="input-field col s12">
+						<input id="input_text" type="text" name="username">
+						<label for="input_text">Username</label>
+					</div>
+					<div class="input-field col s12">
+						<input id="input_text" type="password" name="password">
+						<label for="input_text">Password</label>
+					</div>
+				</div>
+			</form>
+		</div>
+		<div class="modal-footer">
+		  	<a href="JavaScript:void(0)" class="waves-effect waves-green btn-flat">Login</a>
+		</div>
+	</div>
+	<div id="register" class="modal">
+		<div class="modal-content">
+			<form class="col s12">
+				<div class="row">
+					<h4>Please fill all forms to register:</h4><br>
+					<div class="input-field col s12">
+						<input id="input_text" type="text" name="username">
+						<label for="input_text">Username</label>
+					</div>
+					<div class="input-field col s12">
+						<input id="input_text" type="password" name="password">
+						<label for="input_text">Password</label>
+					</div>
+					<div class="input-field col s12">
+						<input id="input_text" type="password" name="password-retype">
+						<label for="input_text">Confirm Password</label>
+					</div>
+				</div>
+			</form>
+		</div>
+		<div class="modal-footer">
+				<a href="JavaScript:void(0)" class="waves-effect waves-green btn-flat">Register</a>
+		</div>
+	</div>
+	<div id="error" class="modal">
+		<div class="modal-content">
+			<h4>Oh no...</h4>
+			<p>There was an error getting the tweets, please try again later.</p>
+		</div>
+		<div class="modal-footer">
+			<a href="JavaScript:void(0)" class="modal-close waves-effect waves-green btn-flat">Ok 😥</a>
+		</div>
+	</div>
 	<!--JavaScript at end of body for optimized loading-->
 	<script type="text/javascript" src="./js/jquery.min.js"></script>
 	<script type="text/javascript" src="./js/materialize.min.js"></script>
