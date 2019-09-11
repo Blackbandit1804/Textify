@@ -1,9 +1,14 @@
 $(() =>
 {
+	$('#error').modal();
+	$('#login').modal();
+	$('#register').modal();
+	addSpinnerToTOM();
 	const API_URL = 'http://localhost:8181/';
 
 	let offset = 0;
-	loading = false;
+	let loading = false;
+	let end = false;
 	$(".account-dropdown").dropdown();
 	$('.sidenav').sidenav( { edge: 'right', inDuration: 500, outDuration: 500 } );
 	$.get(`${API_URL}tweets`, (data) =>
@@ -14,29 +19,28 @@ $(() =>
 		}
 		else
 		{
+			deleteSpinnerFromDOM();
 			data.Success.Data.forEach(tweet =>
 			{
-				$('#tweets').append(
-					`<div class="row"><div class="s12 m12 l8"><div class="card"><div class="card-content">${tweet.text}</div><div class="card-action card-footer">Written by <i>${tweet.account.username}</i> at <i>${tweet.createdAt}</i>
-							</div>
-						</div>
-					</div>
-				</div>`
-				);
+				addTweetToDOM(tweet.text, tweet.account.username, tweet.createdAt);
 			});
-			$('#tweets').append('<div class="row" style="margin-top: 30px;" id="spinner"><div class="s12 m12 l8 center-align"><div class="preloader-wrapper big active"><div class="spinner-layer spinner-yellow-only"><div class="circle-clipper left"><div class="circle"></div></div><div class="gap-patch"><div class="circle"></div></div><div class="circle-clipper right"><div class="circle"></div></div></div></div></div></div>')
+			addSpinnerToTOM();
 		}
+	})
+	.catch(() =>
+	{
+		$('#error').modal('open');
+		deleteSpinnerFromDOM();
 	});
 	$(window).scroll(() =>
 	{
-		if(!loading)
+		if(!loading && !end)
 			if(($(document).height() - $(this).height() - 150 <= $(this).scrollTop()))
 			{
 				loading = true;
 				offset += 10;
 				$.get(`${API_URL}tweets/${offset}`, (data) =>
 				{
-					console.log(data);
 					if(data.Error)
 					{
 						// ToDo
@@ -47,24 +51,58 @@ $(() =>
 						{
 							data.Success.Data.forEach(tweet =>
 							{
-								$('#tweets').append(
-									`<div class="row"><div class="s12 m12 l8"><div class="card"><div class="card-content">${tweet.text}</div><div class="card-action card-footer">Written by <i>${tweet.account.username}</i> at <i>${tweet.createdAt}</i>
-											</div>
-										</div>
-									</div>
-								</div>`
-								);
+								addTweetToDOM(tweet.text, tweet.account.username, tweet.createdAt);
 							});
-							$('#spinner').remove();
-							$('#tweets').append('<div class="row" style="margin-top: 30px;" id="spinner"><div class="s12 m12 l8 center-align"><div class="preloader-wrapper big active"><div class="spinner-layer spinner-yellow-only"><div class="circle-clipper left"><div class="circle"></div></div><div class="gap-patch"><div class="circle"></div></div><div class="circle-clipper right"><div class="circle"></div></div></div></div></div></div>')
+							deleteSpinnerFromDOM();
 						}
 						else
 						{
-							$('#spinner').remove();
+							end = true;
+							offset -= 10;
+							deleteSpinnerFromDOM();
 						}
 					}
 					loading = false;
 				});
 			}
 	});
+
+	$(".login").on("click", () =>
+	{
+		openLogin();
+	});
+
+	$(".register").on("click", () =>
+	{
+		openRegistration();
+	});
+	function addSpinnerToTOM()
+	{
+		$('#tweets').append('<div class="row" style="margin-top: 30px;" id="spinner"><div class="s12 m12 l8 center-align"><div class="preloader-wrapper big active"><div class="spinner-layer spinner-yellow-only"><div class="circle-clipper left"><div class="circle"></div></div><div class="gap-patch"><div class="circle"></div></div><div class="circle-clipper right"><div class="circle"></div></div></div></div></div></div>')
+	}
+
+	function addTweetToDOM(tweet, createdBy, createdAt)
+	{
+		$('#tweets').append(
+			`<div class="row"><div class="col s12 m12 l12"><div class="card"><div class="card-content">${tweet}</div><div class="card-action card-footer">Written by <i>${createdBy}</i> at <i>${createdAt}</i>
+					</div>
+				</div>
+			</div>
+		</div>`
+		);
+	}
+	function deleteSpinnerFromDOM()
+	{
+		$('#spinner').remove();
+	}
+
+	function openLogin()
+	{
+		$('#login').modal('open');
+	}
+
+	function openRegistration()
+	{
+		$('#register').modal('open');
+	}
 });
